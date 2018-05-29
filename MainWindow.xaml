@@ -11,18 +11,32 @@
             <ColumnDefinition Width="250" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0" Background="#ff34495e">
-            
-        </StackPanel>
+
+        <!-- LOGO -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="#ff34495e"></StackPanel>
+        <!-- HEADER -->
         <StackPanel x:Name="wndHeader" Grid.Row="0" Grid.Column="1" Background="#FFFFFF">
 
         </StackPanel>
+        <!-- ASIDE -->
         <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF2C3E50">
-            <Button Content="Данные" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Padding="19,1,1,1" />
+            <Label Foreground="White" FontSize="14" FontFamily="Century Gothic" Padding="20,12,0,0" VerticalAlignment="Center" Height="40">Данные</Label>
+            <Button x:Name="subDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand" Click="subDir_Click">
+                <StackPanel Height="40" Width="250" Orientation="Horizontal">
+                    <Image Width="14" Height="18" Source="./Resources/book.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
+                    <TextBlock Text="Справочник должностей" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="174" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="tryBetter" Click="tryBetter_Click">Test</Button>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" Background="#FFdbe6f0">
+        <!-- CONTENT -->
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Background="#FFdbe6f0">
+                <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                </DataGrid>
+            </StackPanel>
+        </DockPanel>
 
-        </StackPanel>
     </Grid>
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
@@ -30,7 +44,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0" Padding="20, 0, 0, 0">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0" Padding="0, 0, 0, 0">
                             <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>

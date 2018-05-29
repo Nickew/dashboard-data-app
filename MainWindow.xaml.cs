@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Interop;
+using System.Collections.ObjectModel;
 
 namespace intra_app
 {
@@ -32,9 +33,24 @@ namespace intra_app
 
         public static extern bool ReleaseCapture();
 
+        public class Data
+        {
+            public int Test { get; set; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void subDir_Click(object sender, RoutedEventArgs e)
+        {
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT * FROM", "sub_dir", this.dataGrid);  
+        }
+
+        private void tryBetter_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
     }
