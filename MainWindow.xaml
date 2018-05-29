@@ -47,13 +47,30 @@
                     RowHeight="40"
                     GridLinesVisibility="None"
                     RowHeaderWidth="0"
+                    IsReadOnly="True"
                     >
                     <DataGrid.Resources>
                         <Style TargetType="DataGridCell">
                             <Setter Property="BorderBrush" Value="#e7e7e7" />
                             <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                            <Setter Property="FontFamily" Value="Century Gothic" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="Padding" Value="10, 0, 0, 0" />
+
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <Border Padding="{TemplateBinding Padding}" BorderBrush="#e7e7e7" BorderThickness="0, 0, 1, 0" SnapsToDevicePixels="True">
+                                                <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                             <Style.Triggers>
-                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="#fff9e9" />
                                     <Setter Property="BorderBrush" Value="#e7e7e7" />
                                     <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
@@ -61,13 +78,37 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#fff9e9" />
+                                    <Setter Property="BorderBrush" Value="#e7e7e7" />
+                                    <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#1c2836" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                            <Setter Property="Height" Value="40" />
+                            <Setter Property="Padding" Value="10, 0, 0, 0" />
+                            <Setter Property="FontSize" Value="14" />
+                        </Style>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="BorderThickness" Value="0, 0, 0, 0" />
+                            <Setter Property="Margin" Value="10, 10, 10, 10" />
+                        </Style>
                     </DataGrid.Resources>
                 </DataGrid>
             </StackPanel>
         </DockPanel>
-
     </Grid>
     <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Century Gothic" />
+        </Style>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#00DDDDDD"/>
             <Setter Property="Template">

@@ -36,8 +36,13 @@ namespace intra_app
         public MainWindow()
         {
             InitializeComponent();
-
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
         }
+
+
 
         private void subDir_Click(object sender, RoutedEventArgs e)
         {
