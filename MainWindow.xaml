@@ -1,0 +1,46 @@
+﻿<Window x:Class="intra_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="760" Width="1280" Background="#FF252525" Visibility="Visible" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" WindowStartupLocation="Manual">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="#ff34495e">
+            
+        </StackPanel>
+        <StackPanel x:Name="wndHeader" Grid.Row="0" Grid.Column="1" Background="#FFFFFF">
+
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF2C3E50">
+            <Button Content="Данные" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Padding="19,1,1,1" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="#FFdbe6f0">
+
+        </StackPanel>
+    </Grid>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#00DDDDDD"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0" Padding="20, 0, 0, 0">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#32465a"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+</Window>
