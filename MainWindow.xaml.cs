@@ -33,14 +33,10 @@ namespace intra_app
 
         public static extern bool ReleaseCapture();
 
-        public class Data
-        {
-            public int Test { get; set; }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void subDir_Click(object sender, RoutedEventArgs e)
@@ -48,9 +44,16 @@ namespace intra_app
             packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT * FROM", "sub_dir", this.dataGrid);  
         }
 
-        private void tryBetter_Click(object sender, RoutedEventArgs e)
+        private void wndHeader_Click(object sender, MouseButtonEventArgs e)
         {
-            
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                Window window = Window.GetWindow(this);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                ReleaseCapture();
+                SendMessage(hWnd, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
 
     }

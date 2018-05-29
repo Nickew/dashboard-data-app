@@ -15,7 +15,7 @@
         <!-- LOGO -->
         <StackPanel Grid.Row="0" Grid.Column="0" Background="#ff34495e"></StackPanel>
         <!-- HEADER -->
-        <StackPanel x:Name="wndHeader" Grid.Row="0" Grid.Column="1" Background="#FFFFFF">
+        <StackPanel x:Name="wndHeader" Grid.Row="0" Grid.Column="1" Background="#FFFFFF" MouseDown="wndHeader_Click">
 
         </StackPanel>
         <!-- ASIDE -->
@@ -27,12 +27,41 @@
                     <TextBlock Text="Справочник должностей" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="174" HorizontalAlignment="Left" />
                 </StackPanel>
             </Button>
-            <Button x:Name="tryBetter" Click="tryBetter_Click">Test</Button>
+            <Button x:Name="employeesDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand">
+                <StackPanel Height="40" Width="250" Orientation="Horizontal">
+                    <Image Width="14" Height="18" Source="./Resources/book.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
+                    <TextBlock Text="Справочник сотрудников" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="174" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
         </StackPanel>
         <!-- CONTENT -->
         <DockPanel Grid.Row="1" Grid.Column="1">
             <StackPanel Background="#FFdbe6f0">
-                <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <DataGrid
+                    x:Name="dataGrid"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    RowBackground="#ffffff"
+                    AlternatingRowBackground="#f6fbff"
+                    ColumnWidth="*"
+                    RowHeight="40"
+                    GridLinesVisibility="None"
+                    RowHeaderWidth="0"
+                    >
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderBrush" Value="#e7e7e7" />
+                            <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#fff9e9" />
+                                    <Setter Property="BorderBrush" Value="#e7e7e7" />
+                                    <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
                 </DataGrid>
             </StackPanel>
         </DockPanel>
