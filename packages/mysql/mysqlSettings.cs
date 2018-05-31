@@ -14,7 +14,7 @@ namespace intra_app.packages.mysql
         private DataTable dataTable;
 
         public const string dbServer = "localhost";
-        public const string dbSchema = "testcs";
+        public const string dbSchema = "intra";
         public const string dbUser = "nickew";
         public const string dbUserPassword = "qwerty";
         

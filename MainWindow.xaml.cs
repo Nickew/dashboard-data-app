@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Interop;
 using System.Collections.ObjectModel;
+using intra_app.viewModels;
 
 namespace intra_app
 {
@@ -40,13 +41,7 @@ namespace intra_app
             {
                 DefaultValue = FindResource(typeof(Window))
             });
-        }
 
-
-
-        private void subDir_Click(object sender, RoutedEventArgs e)
-        {
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT * FROM", "sub_dir", this.dataGrid);  
         }
 
         private void wndHeader_Click(object sender, MouseButtonEventArgs e)
@@ -59,6 +54,33 @@ namespace intra_app
                 ReleaseCapture();
                 SendMessage(hWnd, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+        private void closeWindow_Click(object sender, MouseButtonEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void maximizeWindow_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void subDir_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new DivisionViewModel();
+        }
+
+        private void employeesDir_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new EmployeeViewModel();
         }
 
     }

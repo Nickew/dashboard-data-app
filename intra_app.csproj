@@ -54,6 +54,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="viewModels\AddDivisionViewModel.cs" />
+    <Compile Include="viewModels\DivisionViewModel.cs" />
+    <Compile Include="viewModels\EmployeeViewModel.cs" />
+    <Compile Include="views\addDivision.xaml.cs">
+      <DependentUpon>addDivision.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\divisions.xaml.cs">
+      <DependentUpon>divisions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\employees.xaml.cs">
+      <DependentUpon>employees.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +78,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="views\addDivision.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\divisions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\employees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="packages\mysql\mysqlConnection.cs" />
@@ -96,10 +120,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\book.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\minimize.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
