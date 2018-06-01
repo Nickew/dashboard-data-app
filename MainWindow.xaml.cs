@@ -42,6 +42,9 @@ namespace intra_app
                 DefaultValue = FindResource(typeof(Window))
             });
 
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+
         }
 
         private void wndHeader_Click(object sender, MouseButtonEventArgs e)
@@ -65,7 +68,10 @@ namespace intra_app
         {
             if (this.WindowState == System.Windows.WindowState.Normal)
             {
+                this.ResizeMode = ResizeMode.NoResize;
                 this.WindowState = System.Windows.WindowState.Maximized;
+                this.MaxHeight = SystemParameters.WorkArea.Height;
+                this.MaxWidth = SystemParameters.WorkArea.Width;
             }
             else
             {

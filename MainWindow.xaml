@@ -34,12 +34,12 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- LOGO -->
@@ -74,9 +74,9 @@
         </StackPanel>
         <!-- CONTENT -->
         <DockPanel Grid.Row="1" Grid.Column="1">
-            <StackPanel Background="#FFdbe6f0">
+            <Grid Background="#FFdbe6f0">
                 <ContentControl Content="{Binding}" />
-            </StackPanel>
+            </Grid>
         </DockPanel>
     </Grid>
 </Window>

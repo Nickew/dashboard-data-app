@@ -9,8 +9,8 @@
              d:DesignHeight="685" d:DesignWidth="1030">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DataGrid
                     x:Name="dataGrid"
@@ -23,6 +23,8 @@
                     GridLinesVisibility="None"
                     RowHeaderWidth="0"
                     IsReadOnly="True"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     Grid.Row="1"
                     >
@@ -82,6 +84,5 @@
         <DockPanel x:Name="appendDock" Grid.Row="0">
             <views:addDivision />
         </DockPanel>
-        <Button x:Name="addDivision" Content="Button" HorizontalAlignment="Left" Margin="987,21,0,0" VerticalAlignment="Top" Width="21" Click="addDivision_Click"/>
     </Grid>
 </UserControl>
