@@ -3,8 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <FontFamily x:Key="FontAwesome">/Fonts/fontawesome-regular.otf#Font Awesome 5 Free Regular</FontFamily>
-        <FontFamily x:Key="FontAwesomeBrands">/Fonts/fontawesome-brands.otf#FontAwesome</FontFamily>
-        <FontFamily x:Key="FontAwesomeSolid">/Fonts/fontawesome-solid.otf#FontAwesome</FontFamily>
     </Application.Resources>
 </Application>

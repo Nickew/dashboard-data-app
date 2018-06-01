@@ -59,7 +59,7 @@ namespace intra_app.views
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
-            if (inputName.Text != "Название отдела")
+            if (inputName.Text != "Название отдела" && inputName.Text != "")
             {
                 try
                 {
@@ -113,6 +113,23 @@ namespace intra_app.views
             {
                 inputName.Text = "";
             }
+        }
+
+        private void toggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (inputName.Visibility == System.Windows.Visibility.Visible) {
+                inputName.Visibility = System.Windows.Visibility.Hidden;
+                inputDivision.Visibility = System.Windows.Visibility.Collapsed;
+                buttonAdd.Visibility = System.Windows.Visibility.Collapsed;
+                toggleText.Text = "Показать";
+                
+            } else {
+                inputName.Visibility = System.Windows.Visibility.Visible;
+                inputDivision.Visibility = System.Windows.Visibility.Visible;
+                buttonAdd.Visibility = System.Windows.Visibility.Visible;
+                toggleText.Text = "Скрыть";
+            }
+
         }
     }
 }
