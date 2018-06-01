@@ -26,29 +26,5 @@ namespace intra_app.views
             InitializeComponent();
             packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
         }
-
-        private void checkRowSpan()
-        {
-            if (appendDock.Visibility == System.Windows.Visibility.Visible)
-            {
-                // dataGrid.SetValue(Grid.RowSpanProperty, 1);
-                Grid.SetRowSpan(dataGrid, 1);
-            }
-            else if (appendDock.Visibility == System.Windows.Visibility.Hidden)
-            {
-                // dataGrid.SetValue(Grid.RowSpanProperty, 2);
-                Grid.SetRowSpan(dataGrid, 2);
-            }
-        }
-
-        private void addDivision_Click(object sender, RoutedEventArgs e)
-        {
-            if (appendDock.Visibility == System.Windows.Visibility.Hidden)
-            {
-                appendDock.Visibility = System.Windows.Visibility.Visible;
-            }
-
-            checkRowSpan();
-        }
     }
 }

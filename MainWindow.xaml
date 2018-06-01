@@ -50,10 +50,21 @@
         </StackPanel>
         <!-- HEADER -->
         <StackPanel x:Name="wndHeader" Grid.Row="0" Grid.Column="1" Background="#FFFFFF" MouseDown="wndHeader_Click">
-            <Grid Height="30" Width="90" HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Image x:Name="closeWindow" Source="./Resources/close.png" Width="30" Height="30" HorizontalAlignment="Right" MouseDown="closeWindow_Click" Cursor="Hand" OpacityMask="Black" />
-                <Image x:Name="maximizeWindow" Source="./Resources/maximize.png" Width="30" Height="30" HorizontalAlignment="Right" Margin="0,0,30,0" VerticalAlignment="Top" MouseDown="maximizeWindow_Click" Cursor="Hand" />
-                <Image Source="./Resources/minimize.png" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" />
+            <Grid Height="26" Width="114" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="closeWindow" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Width="38" Height="26" HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" MouseEnter="closeWindow_MouseEnter" MouseLeave="closeWindow_MouseLeave" Click="closeWindow_Click" Cursor="Hand">
+                    <TextBlock x:Name="closeWindowText" Text="X" FontFamily="Global User Interface" HorizontalAlignment="Center" FontSize="20" Margin="0,2,0,0" Foreground="#FFbdcfdd" />
+                </Button>
+                <Button x:Name="maximizeWindow" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Width="38" Height="26" HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" MouseEnter="maximizeWindow_MouseEnter" MouseLeave="maximizeWindow_MouseLeave" Cursor="Hand" Click="maximizeWindow_Click">
+                    <TextBlock FontFamily="pack://application:,,,/Fonts/#Font Awesome 5 Free Regular" x:Name="maximizeWindowText" Text="&#xF2D0;" HorizontalAlignment="Center" FontSize="16" Margin="0" Foreground="#FFbdcfdd" />
+                </Button>
+                <Button x:Name="minimizeWindow" Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0" Width="38" Height="26" HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" MouseEnter="minimizeWindow_MouseEnter" MouseLeave="minimizeWindow_MouseLeave" Cursor="Hand" Click="minimizeWindow_Click">
+                    <TextBlock FontFamily="pack://application:,,,/Fonts/#Font Awesome 5 Free Regular" x:Name="minimizeWindowText" Text="&#xF2D1;" HorizontalAlignment="Center" FontSize="16" Margin="0,0,0,3" Foreground="#FFbdcfdd" />
+                </Button>
             </Grid>
         </StackPanel>
         <!-- ASIDE -->

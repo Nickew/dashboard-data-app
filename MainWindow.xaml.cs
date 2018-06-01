@@ -55,26 +55,6 @@ namespace intra_app
             }
         }
 
-        private void closeWindow_Click(object sender, MouseButtonEventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void maximizeWindow_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (this.WindowState == System.Windows.WindowState.Normal)
-            {
-                this.ResizeMode = ResizeMode.NoResize;
-                this.WindowState = System.Windows.WindowState.Maximized;
-                this.MaxHeight = SystemParameters.WorkArea.Height;
-                this.MaxWidth = SystemParameters.WorkArea.Width;
-            }
-            else
-            {
-                this.WindowState = System.Windows.WindowState.Normal;
-            }
-        }
-
         private void subDir_Click(object sender, RoutedEventArgs e)
         {
             DataContext = new DivisionViewModel();
@@ -85,5 +65,67 @@ namespace intra_app
             DataContext = new EmployeeViewModel();
         }
 
+        private void closeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void maximizeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.ResizeMode = ResizeMode.NoResize;
+                this.WindowState = System.Windows.WindowState.Maximized;
+                this.MaxHeight = SystemParameters.WorkArea.Height;
+                this.MaxWidth = SystemParameters.WorkArea.Width;
+                maximizeWindowText.Text = "";
+            }
+            else
+            {
+                this.WindowState = WindowState.Normal;
+                maximizeWindowText.Text = "";
+            }
+        }
+
+        private void minimizeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void closeWindow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            closeWindow.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFB8A8A"));
+            closeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFF"));
+        }
+
+        private void closeWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            closeWindow.Background = Brushes.Transparent;
+            closeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDCFDD"));
+        }
+
+        private void maximizeWindow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            maximizeWindow.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffe9f4fd"));
+            maximizeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDCFDD"));
+        }
+
+        private void maximizeWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            maximizeWindow.Background = Brushes.Transparent;
+            maximizeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDCFDD"));
+        }
+
+        private void minimizeWindow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            minimizeWindow.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffe9f4fd"));
+            minimizeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDCFDD"));
+        }
+
+        private void minimizeWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            minimizeWindow.Background = Brushes.Transparent;
+            minimizeWindowText.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDCFDD"));
+        }
     }
 }
