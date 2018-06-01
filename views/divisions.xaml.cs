@@ -24,7 +24,7 @@ namespace intra_app.views
         public divisions()
         {
             InitializeComponent();
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT * FROM", "divisions", this.dataGrid);
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
         }
 
         private void checkRowSpan()
