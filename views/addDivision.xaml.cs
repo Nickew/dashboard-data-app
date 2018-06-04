@@ -28,6 +28,11 @@ namespace intra_app.views
             InitializeComponent();
 
             populateComboBox();
+
+            if (controlPanel.Visibility == System.Windows.Visibility.Visible)
+            {
+                this.Height = 55;
+            }
         }
 
         private void populateComboBox()
@@ -131,5 +136,51 @@ namespace intra_app.views
             }
 
         }
+
+        private void buttonAddEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonAddEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonEditEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonEditEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonEditEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonEditEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+
+        private void buttonDeleteEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonDeleteEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFB8A8A"));
+        }
+
+        private void buttonDeleteEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonDeleteEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+        private void buttonAddEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonAddEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+        private void buttonAddEntry_Click(object sender, RoutedEventArgs e)
+        {
+            controlPanel.Visibility = System.Windows.Visibility.Hidden;
+            gridControl.Visibility = System.Windows.Visibility.Visible;
+            this.Height = 100;
+        }
+
+        private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonEditEntry_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

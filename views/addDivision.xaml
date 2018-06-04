@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="500">
+             d:DesignHeight="100" d:DesignWidth="500">
     <UserControl.Resources>
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
 
@@ -143,16 +143,17 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid x:Name="gridControl" Background="#fff" Margin="10, 10, 10, 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45" />
-            <RowDefinition x:Name="gridRow2" Height="45" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <TextBox x:Name="inputName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Название отдела" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#000078D7" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton">
+    <Grid Background="#fff" Margin="10, 10, 10, 0">
+        <Grid x:Name="gridControl" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition x:Name="gridRow2" Height="45" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="inputName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Название отдела" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#000078D7" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -172,8 +173,34 @@
         <Button Grid.Row="1" Grid.Column="1" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
             <TextBlock Text="Добавить отдел" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
         </Button>
-        <Button Grid.Row="0" Grid.Column="1" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
+        <Button Grid.Row="0" Grid.Column="1" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
             <TextBlock x:Name="toggleText" Text="Скрыть" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
         </Button>
+        </Grid>
+        <Grid x:Name="controlPanel" Height="45">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Grid.Column="2">
+                <Button x:Name="buttonDeleteEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="120" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonDeleteEntry_MouseEnter" MouseLeave="buttonDeleteEntry_MouseLeave" Click="buttonDeleteEntry_Click">
+                    <TextBlock Text="Видалити запис" FontFamily="Global User Interface" />
+                </Button>
+            </DockPanel>
+            <DockPanel Grid.Row="0" Grid.Column="1">
+                <Button x:Name="buttonEditEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="120" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonEditEntry_MouseEnter" MouseLeave="buttonEditEntry_MouseLeave" Click="buttonEditEntry_Click">
+                    <TextBlock Text="Редагувати запис" FontFamily="Global User Interface" />
+                </Button>
+            </DockPanel>
+            <DockPanel Grid.Row="0" Grid.Column="0">
+                <Button x:Name="buttonAddEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="80" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonAddEntry_MouseEnter" MouseLeave="buttonAddEntry_MouseLeave" Click="buttonAddEntry_Click">
+                    <TextBlock Text="Додати запис" FontFamily="Global User Interface" />
+                </Button>
+            </DockPanel>
+        </Grid>
     </Grid>
 </UserControl>
