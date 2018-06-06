@@ -17,13 +17,13 @@ using MySql.Data.MySqlClient;
 namespace intra_app.views
 {
     /// <summary>
-    /// Interaction logic for addDivision.xaml
+    /// Interaction logic for addEmployee.xaml
     /// </summary>
-    public partial class addDivision : UserControl
+    public partial class addEmployee : UserControl
     {
-        private const string databaseTable = "divisions";
-
-        public addDivision()
+        private const string databaseTable = "employees";
+        private const string foreignTable = "divisions";
+        public addEmployee()
         {
             InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace intra_app.views
             packages.mysql.mysqlSettings database = new packages.mysql.mysqlSettings();
             string query = String.Format("SELECT id, name FROM {0}.{1}",
                 packages.mysql.mysqlSettings.dbSchema,
-                databaseTable
+                foreignTable
             );
 
             database.createConnection();
@@ -60,11 +60,11 @@ namespace intra_app.views
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string query = String.Format("INSERT INTO {0}.{1}(MAIN_SUB, NAME) VALUES(@main_sub, @name)",
+            string query = String.Format("INSERT INTO {0}.{1}(FIRSTNAME, SURNAME, PATRONYMIC, DIVISIONS_ID) VALUES(@firstname, @surname, @patronymic, @division)",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
-            if (inputName.Text != "Название отдела" && inputName.Text != "")
+            if (inputFirstName.Text != "Ім'я" && inputFirstName.Text != "" && inputSurName.Text != "Призвище" && inputSurName.Text != "" && inputPatronymic.Text != "По батькові" && inputPatronymic.Text != "")
             {
                 try
                 {
@@ -76,13 +76,17 @@ namespace intra_app.views
 
                             if (inputDivision.SelectedValue == null)
                             {
-                                mySqlCommand.Parameters.AddWithValue("@main_sub", null);
-                                mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@division", null);
+                                mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
                             }
                             else
                             {
-                                mySqlCommand.Parameters.AddWithValue("@main_sub", Convert.ToInt32(inputDivision.SelectedValue));
-                                mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@division", Convert.ToInt32(inputDivision.SelectedValue));
+                                mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
+                                mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
                             }
 
                             mySqlCommand.ExecuteNonQuery();
@@ -112,11 +116,27 @@ namespace intra_app.views
             buttonAdd.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
         }
 
-        private void inputName_LeftButton(object sender, MouseButtonEventArgs e)
+        private void inputFirstName_LeftButton(object sender, MouseButtonEventArgs e)
         {
-            if (inputName.Text == "Название отдела")
+            if (inputFirstName.Text == "Ім'я")
             {
-                inputName.Text = "";
+                inputFirstName.Text = "";
+            }
+        }
+
+        private void inputSurName_LeftButton(object sender, MouseButtonEventArgs e)
+        {
+            if (inputSurName.Text == "Призвище")
+            {
+                inputSurName.Text = "";
+            }
+        }
+
+        private void inputPatronymic_LeftButton(object sender, MouseButtonEventArgs e)
+        {
+            if (inputPatronymic.Text == "По батькові")
+            {
+                inputPatronymic.Text = "";
             }
         }
 
@@ -172,6 +192,5 @@ namespace intra_app.views
         {
 
         }
-
     }
 }

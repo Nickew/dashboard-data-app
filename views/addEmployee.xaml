@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="intra_app.views.addDivision"
+﻿<UserControl x:Class="intra_app.views.addEmployee"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="500">
+             d:DesignHeight="100" d:DesignWidth="700">
     <UserControl.Resources>
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
 
@@ -151,26 +151,28 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="300" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="inputName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Назва відділу" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton">
-            </TextBox>
-        <ComboBox x:Name="inputDivision" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="280" Height="30" Text="Головний відділ" Background="#FFF2F8FC" BorderBrush="#FFF2F8FC" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="0">
-            <ComboBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ComboBoxItem}">
-                    <Setter Property="Background" Value="#fff2f8fc" />
-                </Style>
-            </ComboBox.ItemContainerStyle>
-            <ComboBox.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#fff2f8fc" />
-            </ComboBox.Resources>
-        </ComboBox>
-        <Button Grid.Row="1" Grid.Column="1" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <TextBlock Text="Додати запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
-        </Button>
-        <Button Grid.Row="0" Grid.Column="1" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
+            <TextBox x:Name="inputFirstName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Ім'я" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputFirstName_LeftButton" />
+            <TextBox x:Name="inputSurName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Призвище" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputSurName_LeftButton" />
+            <TextBox x:Name="inputPatronymic" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="По батькові" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputPatronymic_LeftButton" />
+            <ComboBox Grid.Column="1" x:Name="inputDivision" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="280" Height="30" Text="Відділ" Background="#FFF2F8FC" BorderBrush="#FFF2F8FC" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="0">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="Background" Value="#fff2f8fc" />
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+                <ComboBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#fff2f8fc" />
+                </ComboBox.Resources>
+            </ComboBox>
+            <Button Grid.Row="1" Grid.Column="3" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Text="Додати запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="3" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
                 <TextBlock x:Name="toggleText" Text="« Назад" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
-        </Button>
+            </Button>
         </Grid>
         <Grid x:Name="controlPanel" Height="45">
             <Grid.ColumnDefinitions>

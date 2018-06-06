@@ -24,9 +24,9 @@
                     RowHeaderWidth="0"
                     IsReadOnly="True"
                     ScrollViewer.CanContentScroll="True"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                    Grid.Row="1"
+                    Grid.Row="1" Background="White"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">

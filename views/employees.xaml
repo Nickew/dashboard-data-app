@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:intra_app.viewModels"
+             xmlns:views="clr-namespace:intra_app.views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <DataGrid
                     x:Name="dataGrid"
                     HorizontalAlignment="Stretch"
@@ -17,7 +23,10 @@
                     GridLinesVisibility="None"
                     RowHeaderWidth="0"
                     IsReadOnly="True"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                    Grid.Row="1" Background="White"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
@@ -71,6 +80,9 @@
                     <Setter Property="Margin" Value="10, 10, 10, 10" />
                 </Style>
             </DataGrid.Resources>
-        </DataGrid>    
+        </DataGrid>
+        <DockPanel x:Name="appendDock" Grid.Row="0">
+            <views:addEmployee />
+        </DockPanel>
     </Grid>
 </UserControl>
