@@ -59,9 +59,6 @@
     <Compile Include="viewModels\AddDivisionViewModel.cs" />
     <Compile Include="viewModels\DivisionViewModel.cs" />
     <Compile Include="viewModels\EmployeeViewModel.cs" />
-    <Compile Include="views\addDivision.xaml.cs">
-      <DependentUpon>addDivision.xaml</DependentUpon>
-    </Compile>
     <Compile Include="views\addEmployee.xaml.cs">
       <DependentUpon>addEmployee.xaml</DependentUpon>
     </Compile>
@@ -83,10 +80,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="views\addDivision.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\addEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

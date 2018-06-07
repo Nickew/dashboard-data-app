@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace intra_app.views
 {
@@ -23,22 +24,170 @@ namespace intra_app.views
     {
         packages.setters.Division div = new packages.setters.Division();
         public string index = String.Empty;
+        private const string databaseTable = "divisions";
         public divisions()
         {
             InitializeComponent();
+            appendDock.Height = 55;
             packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
+            populateComboBox();
+
         }
 
         public void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            div.item = dataGrid.SelectedItem;
-            index = (dataGrid.SelectedCells[0].Column.GetCellContent(div.item) as TextBlock).Text;
-            deleteSelectedRow();
+            
+            //var cellContent = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
+           // div.setInfo(cellContent);
+
         }
 
-        public void deleteSelectedRow() // doesn't work
+        private void populateComboBox()
         {
-            MessageBox.Show(this.index);
+            packages.mysql.mysqlSettings database = new packages.mysql.mysqlSettings();
+            string query = String.Format("SELECT id, name FROM {0}.{1}",
+                packages.mysql.mysqlSettings.dbSchema,
+                databaseTable
+            );
+
+            database.createConnection();
+
+            using (database.initSqlCommand(query))
+            {
+                database.openConnection();
+
+                inputDivision.DisplayMemberPath = "name";
+                inputDivision.SelectedValuePath = "id";
+                inputDivision.ItemsSource = database.getData(query).DefaultView;
+
+            }
+            database.closeConnection();
+
+        }
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            string query = String.Format("INSERT INTO {0}.{1}(MAIN_SUB, NAME) VALUES(@main_sub, @name)",
+                packages.mysql.mysqlSettings.dbSchema,
+                databaseTable
+            );
+            if (inputName.Text != "Название отдела" && inputName.Text != "")
+            {
+                try
+                {
+                    using (MySqlConnection mySqlConnection = new MySqlConnection(packages.mysql.mysqlSettings.connectionString))
+                    {
+                        using (MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConnection))
+                        {
+                            mySqlConnection.Open();
+
+                            if (inputDivision.SelectedValue == null)
+                            {
+                                mySqlCommand.Parameters.AddWithValue("@main_sub", null);
+                                mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                            }
+                            else
+                            {
+                                mySqlCommand.Parameters.AddWithValue("@main_sub", Convert.ToInt32(inputDivision.SelectedValue));
+                                mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                            }
+
+                            mySqlCommand.ExecuteNonQuery();
+                            mySqlConnection.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Укажите название нового отдела", "Syntax Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
+
+        private void buttonAdd_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonAdd.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonAdd_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonAdd.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+
+        private void inputName_LeftButton(object sender, MouseButtonEventArgs e)
+        {
+            if (inputName.Text == "Название отдела")
+            {
+                inputName.Text = "";
+            }
+        }
+
+        private void toggle_Click(object sender, RoutedEventArgs e)
+        {
+            controlPanel.Visibility = System.Windows.Visibility.Visible;
+            gridControl.Visibility = System.Windows.Visibility.Hidden;
+            appendDock.Height = 55;
+
+        }
+
+        private void buttonAddEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonAddEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonEditEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonEditEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonEditEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonEditEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+
+        private void buttonDeleteEntry_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonDeleteEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFB8A8A"));
+        }
+
+        private void buttonDeleteEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonDeleteEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+        private void buttonAddEntry_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonAddEntry.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+        private void buttonAddEntry_Click(object sender, RoutedEventArgs e)
+        {
+            controlPanel.Visibility = System.Windows.Visibility.Hidden;
+            gridControl.Visibility = System.Windows.Visibility.Visible;
+            appendDock.Height = 100;
+        }
+
+        private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+                         packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
+
+            string query = String.Format("DELETE FROM {0}.{1} WHERE {1} = {2}",
+                packages.mysql.mysqlSettings.dbSchema,
+                "divisions",
+                "id",
+                index);
+             */
+
+
+        }
+
+        public void buttonEditEntry_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
