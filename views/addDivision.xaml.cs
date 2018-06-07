@@ -26,7 +26,7 @@ namespace intra_app.views
         public addDivision()
         {
             InitializeComponent();
-
+            
             populateComboBox();
 
             if (controlPanel.Visibility == System.Windows.Visibility.Visible)
@@ -165,10 +165,20 @@ namespace intra_app.views
 
         private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
         {
+            /*
+                         packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
+            string query = String.Format("DELETE FROM {0}.{1} WHERE {1} = {2}",
+                packages.mysql.mysqlSettings.dbSchema,
+                "divisions",
+                "id",
+                index);
+             */
+            views.divisions divView = new views.divisions();
+            divView.deleteSelectedRow();
         }
 
-        private void buttonEditEntry_Click(object sender, RoutedEventArgs e)
+        public void buttonEditEntry_Click(object sender, RoutedEventArgs e)
         {
 
         }

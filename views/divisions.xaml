@@ -27,7 +27,8 @@
                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     Grid.Row="1"
-                    Background="#DBE6F0"
+                    Background="#DBE6F0" SelectionChanged="dataGrid_SelectionChanged"
+                    SelectionMode="Single"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">

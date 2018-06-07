@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="packages\setters\Division.cs" />
     <Compile Include="viewModels\AddEmployeeViewModel.cs" />
     <Compile Include="viewModels\AddDivisionViewModel.cs" />
     <Compile Include="viewModels\DivisionViewModel.cs" />

@@ -21,10 +21,24 @@ namespace intra_app.views
     /// </summary>
     public partial class divisions : UserControl
     {
+        packages.setters.Division div = new packages.setters.Division();
+        public string index = String.Empty;
         public divisions()
         {
             InitializeComponent();
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
+        }
+
+        public void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            div.item = dataGrid.SelectedItem;
+            index = (dataGrid.SelectedCells[0].Column.GetCellContent(div.item) as TextBlock).Text;
+            deleteSelectedRow();
+        }
+
+        public void deleteSelectedRow() // doesn't work
+        {
+            MessageBox.Show(this.index);
         }
     }
 }
