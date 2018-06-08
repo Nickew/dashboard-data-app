@@ -3,10 +3,146 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewmodels="clr-namespace:intra_app.viewModels"
-             xmlns:views="clr-namespace:intra_app.views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
+
+        <SolidColorBrush x:Key="MainColor" Color="#dde8f1"/>
+        <SolidColorBrush x:Key="MainColorLight" Color="#dde8f1"/>
+        <SolidColorBrush x:Key="MainColorDark" Color="#dde8f1"/>
+
+        <SolidColorBrush x:Key="BorderMainBrush" Color="#dde8f1"/>
+        <SolidColorBrush x:Key="BorderDarkMainBrush" Color="#dde8f1"/>
+
+        <SolidColorBrush x:Key="BackgroundGrayDark" Color="#fff2f8fc"/>
+        <SolidColorBrush x:Key="BackgroundGrayLight" Color="#fff2f8fc"/>
+
+        <SolidColorBrush x:Key="ForegroundDisabledBrush" Color="#FF607C9D"/>
+        <SolidColorBrush x:Key="ForegroundBrush" Color="#FF607C9D"/>
+
+
+        <LinearGradientBrush x:Key="FormBackgroundBrush"
+                             EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFFFD" Offset="0.31" />
+            <GradientStop Color="#FFF8F8F8" Offset="1" />
+        </LinearGradientBrush>
+
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="MouseOver"/>
+                        <VisualState x:Name="Pressed"/>
+                        <VisualState x:Name="Disabled"/>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Border x:Name="Border" SnapsToDevicePixels="True" Grid.ColumnSpan="2" Background="{DynamicResource BackgroundGrayDark}" BorderBrush="{DynamicResource BorderDarkMainBrush}" BorderThickness="1"  />
+                <Border x:Name="Border2" Grid.Column="0" SnapsToDevicePixels="True" Margin="1" Background="{StaticResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderDarkMainBrush}" BorderThickness="0,0,1,0" />
+                <Path x:Name="Arrow" Grid.Column="1" Data="M 0 0 L 4 4 L 8 0 Z" Fill="DimGray" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColor}" />
+                    <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource MainColor}" />
+                    <Setter Property="BorderBrush" TargetName="Border2" Value="{DynamicResource MainColor}" />
+                    <Setter Property="Fill" TargetName="Arrow" Value="White" />
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="true">
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColorDark}" />
+                    <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource MainColorDark}" />
+                    <Setter Property="BorderBrush" TargetName="Border2" Value="{DynamicResource MainColorDark}" />
+                    <Setter Property="Fill" TargetName="Arrow" Value="White" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource BackgroundGrayLight}" />
+                    <Setter Property="BorderBrush" TargetName="Border" Value="{StaticResource BorderMainBrush}" />
+                    <Setter Property="Foreground" Value="{StaticResource ForegroundDisabledBrush}" />
+                </Trigger>
+                <DataTrigger Binding="{Binding IsKeyboardFocusWithin, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" Value="True">
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource MainColorLight}" />
+                    <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource MainColorLight}" />
+                    <Setter Property="BorderBrush" TargetName="Border2" Value="{DynamicResource MainColorLight}" />
+                    <Setter Property="Fill" TargetName="Arrow" Value="White" />
+                </DataTrigger >
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Border x:Name="PART_ContentHost" Background="{TemplateBinding Background}" Focusable="False" />
+        </ControlTemplate>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToggleButton x:Name="ToggleButton" Grid.Column="2" ClickMode="Press" Focusable="false"
+                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                        Template="{StaticResource ComboBoxToggleButton}"/>
+
+                            <ContentPresenter Margin="3,3,23,3" Content="{TemplateBinding SelectionBoxItem}"
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                        HorizontalAlignment="Left" IsHitTestVisible="False" x:Name="ContentSite"
+                        VerticalAlignment="Center" />
+
+                            <TextBox Style="{x:Null}" x:Name="PART_EditableTextBox" Margin="3,3,23,3" Background="Transparent"
+                        Focusable="True" HorizontalAlignment="Left" IsReadOnly="{TemplateBinding IsReadOnly}"
+                        Template="{StaticResource ComboBoxTextBox}" VerticalAlignment="Center" Visibility="Hidden" />
+
+                            <Popup AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsDropDownOpen}" x:Name="Popup" Placement="Bottom" PopupAnimation="Fade">
+                                <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                    <Border x:Name="DropDownBorder" Background="White" BorderBrush="{StaticResource BorderDarkMainBrush}" BorderThickness="1" CornerRadius="0" />
+                                    <ScrollViewer Margin="2" SnapsToDevicePixels="True">
+                                        <StackPanel KeyboardNavigation.DirectionalNavigation="Contained" IsItemsHost="True" TextBlock.Foreground="#FF607C9D" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="MinHeight" TargetName="DropDownBorder" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false" />
+                                <Setter Property="Visibility" TargetName="PART_EditableTextBox" Value="Visible" />
+                                <Setter Property="Visibility" TargetName="ContentSite" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,7 +163,7 @@
                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     Grid.Row="1"
-                    Background="#DBE6F0"
+                    Background="#DBE6F0" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" SelectionChanged="dataGrid_SelectionChanged"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
@@ -83,7 +219,63 @@
             </DataGrid.Resources>
         </DataGrid>
         <DockPanel x:Name="appendDock" Grid.Row="0">
-            <views:addEmployee />
+            <Grid Background="#fff" Margin="10, 10, 10, 0">
+                <Grid x:Name="gridControl" Visibility="Hidden">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition x:Name="gridRow2" Height="45" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="inputFirstName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Ім'я" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputFirstName_LeftButton" />
+                    <TextBox x:Name="inputSurName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Призвище" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputSurName_LeftButton" />
+                    <TextBox x:Name="inputPatronymic" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="По батькові" VerticalAlignment="Center" Width="280" Margin="10,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputPatronymic_LeftButton" />
+                    <ComboBox Grid.Column="1" x:Name="inputDivision" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="280" Height="30" Text="Відділ" Background="#FFF2F8FC" BorderBrush="#FFF2F8FC" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="0">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ComboBoxItem}">
+                                <Setter Property="Background" Value="#fff2f8fc" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#fff2f8fc" />
+                        </ComboBox.Resources>
+                    </ComboBox>
+                    <Button Grid.Row="1" Grid.Column="3" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Text="Додати запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="3" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
+                        <TextBlock x:Name="toggleText" Text="« Назад" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
+                    </Button>
+                </Grid>
+                <Grid x:Name="controlPanel" Height="45">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="120" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Grid.Column="2">
+                        <Button x:Name="buttonDeleteEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="120" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonDeleteEntry_MouseEnter" MouseLeave="buttonDeleteEntry_MouseLeave" Click="buttonDeleteEntry_Click">
+                            <TextBlock Text="Видалити запис" FontFamily="Global User Interface" />
+                        </Button>
+                    </DockPanel>
+                    <DockPanel Grid.Row="0" Grid.Column="1">
+                        <Button x:Name="buttonEditEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="120" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonEditEntry_MouseEnter" MouseLeave="buttonEditEntry_MouseLeave" Click="buttonEditEntry_Click">
+                            <TextBlock Text="Редагувати запис" FontFamily="Global User Interface" />
+                        </Button>
+                    </DockPanel>
+                    <DockPanel Grid.Row="0" Grid.Column="0">
+                        <Button x:Name="buttonAddEntry" Background="Transparent" BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="120" Cursor="Hand" Foreground="#FF607C9D" MouseEnter="buttonAddEntry_MouseEnter" MouseLeave="buttonAddEntry_MouseLeave" Click="buttonAddEntry_Click">
+                            <TextBlock Text="Додати новий запис" FontFamily="Global User Interface" />
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </Grid>
         </DockPanel>
     </Grid>
 </UserControl>

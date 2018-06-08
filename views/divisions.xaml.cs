@@ -22,24 +22,21 @@ namespace intra_app.views
     /// </summary>
     public partial class divisions : UserControl
     {
-        packages.setters.Division div = new packages.setters.Division();
-        public string index = String.Empty;
         private const string databaseTable = "divisions";
+
         public divisions()
         {
             InitializeComponent();
-            appendDock.Height = 55;
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
-            populateComboBox();
 
+            appendDock.Height = 55;
+
+            loadTable();
+            populateComboBox();
         }
 
-        public void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void loadTable()
         {
-            
-            //var cellContent = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
-           // div.setInfo(cellContent);
-
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
         }
 
         private void populateComboBox()
@@ -63,6 +60,14 @@ namespace intra_app.views
             }
             database.closeConnection();
 
+        }
+
+        private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.Column.Header.ToString() == "id")
+            {
+                e.Column.MaxWidth = 0;
+            }
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
@@ -172,17 +177,12 @@ namespace intra_app.views
 
         private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
         {
-            /*
-                         packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
+            var cell = dataGrid.SelectedCells[0];
+            var index = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
 
-            string query = String.Format("DELETE FROM {0}.{1} WHERE {1} = {2}",
-                packages.mysql.mysqlSettings.dbSchema,
-                "divisions",
-                "id",
-                index);
-             */
+            packages.mysql.deleteEntry deleteSelectedRow = new packages.mysql.deleteEntry(databaseTable, index, dataGrid);
 
-
+            loadTable();
         }
 
         public void buttonEditEntry_Click(object sender, RoutedEventArgs e)
