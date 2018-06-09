@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 using MySql.Data.MySqlClient;
 
 namespace intra_app.views
@@ -22,6 +23,8 @@ namespace intra_app.views
     /// </summary>
     public partial class divisions : UserControl
     {
+        private string tmpIndex = String.Empty;
+
         private const string databaseTable = "divisions";
 
         public divisions()
@@ -31,12 +34,38 @@ namespace intra_app.views
             appendDock.Height = 55;
 
             loadTable();
-            populateComboBox();
         }
 
         private void loadTable()
         {
             packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
+        }
+
+        private void loadRowData(string index)
+        {
+            packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
+
+            string query = String.Format("SELECT id, main_sub, name FROM {0}.{1} WHERE id = {2}",
+                packages.mysql.mysqlSettings.dbSchema,
+                databaseTable,
+                index);
+
+            mySqlSettings.createConnection();
+
+            using (mySqlSettings.initSqlCommand(query))
+            {
+                mySqlSettings.openConnection();
+
+                using (MySqlDataReader reader = mySqlSettings.initSqlCommand(query).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        inputName.Text = (reader["name"].ToString());
+                    }
+                }
+                populateComboBox();
+            }
+            mySqlSettings.closeConnection();
         }
 
         private void populateComboBox()
@@ -112,6 +141,7 @@ namespace intra_app.views
                 MessageBox.Show("Укажите название нового отдела", "Syntax Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            loadTable();
         }
 
         private void buttonAdd_MouseEnter(object sender, MouseEventArgs e)
@@ -122,6 +152,56 @@ namespace intra_app.views
         private void buttonAdd_MouseLeave(object sender, MouseEventArgs e)
         {
             buttonAdd.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+
+        private void buttonEdit_MouseEnter(object sender, MouseEventArgs e)
+        {
+            buttonEdit.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF81a3ca"));
+        }
+
+        private void buttonEdit_MouseLeave(object sender, MouseEventArgs e)
+        {
+            buttonEdit.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607C9D"));
+        }
+
+        private void buttonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
+
+            string query = String.Format("UPDATE {0} SET main_sub = @main_sub, name = @name WHERE id = {1}",
+                databaseTable,
+                tmpIndex);
+
+            try
+            {
+                using (MySqlConnection mySqlConnection = new MySqlConnection(packages.mysql.mysqlSettings.connectionString))
+                {
+                    using (MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConnection))
+                    {
+                        mySqlConnection.Open();
+
+                        if (inputDivision.SelectedValue == null)
+                        {
+                            mySqlCommand.Parameters.AddWithValue("@main_sub", null);
+                            mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                        }
+                        else
+                        {
+                            mySqlCommand.Parameters.AddWithValue("@main_sub", Convert.ToInt32(inputDivision.SelectedValue));
+                            mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                        }
+
+                        mySqlCommand.ExecuteNonQuery();
+                        mySqlConnection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            loadTable();
         }
 
         private void inputName_LeftButton(object sender, MouseButtonEventArgs e)
@@ -170,8 +250,14 @@ namespace intra_app.views
         }
         private void buttonAddEntry_Click(object sender, RoutedEventArgs e)
         {
+            populateComboBox();
+
             controlPanel.Visibility = System.Windows.Visibility.Hidden;
             gridControl.Visibility = System.Windows.Visibility.Visible;
+
+            buttonAdd.Visibility = Visibility.Visible;
+            buttonEdit.Visibility = Visibility.Hidden;
+
             appendDock.Height = 100;
         }
 
@@ -187,7 +273,33 @@ namespace intra_app.views
 
         public void buttonEditEntry_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var cell = dataGrid.SelectedCells[0];
+                var index = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
 
+                tmpIndex = index;
+
+                controlPanel.Visibility = System.Windows.Visibility.Hidden;
+                gridControl.Visibility = System.Windows.Visibility.Visible;
+                appendDock.Height = 100;
+
+                buttonAdd.Visibility = Visibility.Hidden;
+                buttonEdit.Visibility = Visibility.Visible;
+
+                loadRowData(index);
+
+            } catch (Exception ex) {
+                var stackTrace = new StackTrace(ex, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+
+                if (line == 0)
+                {
+                    MessageBox.Show("Оберіть запис для редагування", "Selection Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
         }
     }
 }

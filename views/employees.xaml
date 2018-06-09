@@ -246,6 +246,9 @@
                     <Button Grid.Row="1" Grid.Column="3" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <TextBlock Text="Додати запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
                     </Button>
+                    <Button Visibility="Hidden" Grid.Row="1" Grid.Column="3" x:Name="buttonEdit" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonEdit_Click" MouseEnter="buttonEdit_MouseEnter" MouseLeave="buttonEdit_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock Text="Оновити запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
+                    </Button>
                     <Button Grid.Row="0" Grid.Column="3" x:Name="toggle" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" Click="toggle_Click">
                         <TextBlock x:Name="toggleText" Text="« Назад" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
                     </Button>
