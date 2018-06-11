@@ -57,11 +57,15 @@
     <Compile Include="packages\mysql\deleteEntry.cs" />
     <Compile Include="viewModels\DivisionViewModel.cs" />
     <Compile Include="viewModels\EmployeeViewModel.cs" />
+    <Compile Include="viewModels\EquipmentViewModel.cs" />
     <Compile Include="views\divisions.xaml.cs">
       <DependentUpon>divisions.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\employees.xaml.cs">
       <DependentUpon>employees.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\equipment.xaml.cs">
+      <DependentUpon>equipment.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\employees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\equipment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
