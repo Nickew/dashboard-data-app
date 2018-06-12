@@ -173,7 +173,7 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     Grid.Row="1"
                     Background="#DBE6F0"
-                    SelectionMode="Single" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn"
+                    SelectionMode="Single" AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" MouseDoubleClick="dataGrid_DoubleClick"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
@@ -230,7 +230,7 @@
         </DataGrid>
         <DockPanel x:Name="appendDock" Grid.Row="0">
             <Grid Background="#fff" Margin="10, 10, 10, 0">
-                <Grid x:Name="gridControl" >
+                <Grid x:Name="gridControl" Visibility="Hidden">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45" />
                         <RowDefinition x:Name="gridRow2" Height="200" />
@@ -267,7 +267,7 @@
                         <TextBlock x:Name="toggleText" Text="« Назад" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
                     </Button>
                 </Grid>
-                <Grid x:Name="controlPanel" Visibility="Hidden">
+                <Grid x:Name="controlPanel">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
                         <ColumnDefinition Width="120" />

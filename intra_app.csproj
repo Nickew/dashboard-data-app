@@ -67,6 +67,9 @@
     <Compile Include="views\equipment.xaml.cs">
       <DependentUpon>equipment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\equipmentPage.xaml.cs">
+      <DependentUpon>equipmentPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\equipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\equipmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
