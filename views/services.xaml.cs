@@ -18,16 +18,15 @@ using MySql.Data.MySqlClient;
 namespace intra_app.views
 {
     /// <summary>
-    /// Interaction logic for employees.xaml
+    /// Interaction logic for services.xaml
     /// </summary>
-    public partial class employees : UserControl
+    public partial class services : UserControl
     {
         private string tmpIndex = String.Empty;
 
-        private const string databaseTable = "employees";
-        private const string foreignTable = "divisions";
+        private const string databaseTable = "services";
 
-        public employees()
+        public services()
         {
             InitializeComponent();
 
@@ -38,14 +37,14 @@ namespace intra_app.views
 
         private void loadTable()
         {
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT employees.id, firstname as 'Імя', surname as 'Призвище', patronymic as 'По батькові', divisions.name as 'Відділ' FROM", "employees", this.dataGrid, "JOIN divisions ON employees.DIVISIONS_id = divisions.id");
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, name as 'Назва послуги', price_per_unit as 'Ціна за одиницю' FROM", databaseTable, this.dataGrid);
         }
 
         private void loadRowData(string index)
         {
             packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
-            string query = String.Format("SELECT employees.id, firstname, surname, patronymic FROM {0}.{1} WHERE employees.id = {2}",
+            string query = String.Format("SELECT id, main_sub, name FROM {0}.{1} WHERE id = {2}",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable,
                 index);
@@ -60,37 +59,11 @@ namespace intra_app.views
                 {
                     while (reader.Read())
                     {
-                        inputFirstName.Text = (reader["firstname"].ToString());
-                        inputSurName.Text = (reader["surname"].ToString());
-                        inputPatronymic.Text = (reader["patronymic"].ToString());
+                        inputName.Text = (reader["name"].ToString());
                     }
                 }
-                populateComboBox();
             }
             mySqlSettings.closeConnection();
-        }
-
-        private void populateComboBox()
-        {
-            packages.mysql.mysqlSettings database = new packages.mysql.mysqlSettings();
-            string query = String.Format("SELECT id, name FROM {0}.{1}",
-                packages.mysql.mysqlSettings.dbSchema,
-                foreignTable
-            );
-
-            database.createConnection();
-
-            using (database.initSqlCommand(query))
-            {
-                database.openConnection();
-
-                inputDivision.DisplayMemberPath = "name";
-                inputDivision.SelectedValuePath = "id";
-                inputDivision.ItemsSource = database.getData(query).DefaultView;
-
-            }
-            database.closeConnection();
-
         }
 
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -103,12 +76,12 @@ namespace intra_app.views
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string query = String.Format("INSERT INTO {0}.{1}(FIRSTNAME, SURNAME, PATRONYMIC, DIVISIONS_ID) VALUES(@firstname, @surname, @patronymic, @division)",
+            string query = String.Format("INSERT INTO {0}.{1}(name, price_per_unit) VALUES(@name, @price)",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
 
-            if (inputFirstName.Text != "Ім'я" && inputFirstName.Text != "" && inputSurName.Text != "Призвище" && inputSurName.Text != "" && inputPatronymic.Text != "По батькові" && inputPatronymic.Text != "")
+            if (inputName.Text != "Название отдела" && inputName.Text != "")
             {
                 try
                 {
@@ -118,20 +91,8 @@ namespace intra_app.views
                         {
                             mySqlConnection.Open();
 
-                            if (inputDivision.SelectedValue == null)
-                            {
-                                mySqlCommand.Parameters.AddWithValue("@division", null);
-                                mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
-                                mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
-                                mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
-                            }
-                            else
-                            {
-                                mySqlCommand.Parameters.AddWithValue("@division", Convert.ToInt32(inputDivision.SelectedValue));
-                                mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
-                                mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
-                                mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
-                            }
+                            mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                            mySqlCommand.Parameters.AddWithValue("@price", inputPrice.Text);
 
                             mySqlCommand.ExecuteNonQuery();
                             mySqlConnection.Close();
@@ -175,7 +136,7 @@ namespace intra_app.views
         {
             packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
-            string query = String.Format("UPDATE {0} SET divisions_id = @division, firstname = @firstname, surname = @surname, patronymic = @patronymic WHERE {0}.id = {1}",
+            string query = String.Format("UPDATE {0} SET name = @name, price_per_unit = @price WHERE id = {1}",
                 databaseTable,
                 tmpIndex);
 
@@ -187,20 +148,8 @@ namespace intra_app.views
                     {
                         mySqlConnection.Open();
 
-                        if (inputDivision.SelectedValue == null)
-                        {
-                            mySqlCommand.Parameters.AddWithValue("@division", null);
-                            mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
-                            mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
-                            mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
-                        }
-                        else
-                        {
-                            mySqlCommand.Parameters.AddWithValue("@division", Convert.ToInt32(inputDivision.SelectedValue));
-                            mySqlCommand.Parameters.AddWithValue("@firstname", inputFirstName.Text);
-                            mySqlCommand.Parameters.AddWithValue("@surname", inputSurName.Text);
-                            mySqlCommand.Parameters.AddWithValue("@patronymic", inputPatronymic.Text);
-                        }
+                        mySqlCommand.Parameters.AddWithValue("@name", inputName.Text);
+                        mySqlCommand.Parameters.AddWithValue("@price", inputPrice.Text);
 
                         mySqlCommand.ExecuteNonQuery();
                         mySqlConnection.Close();
@@ -215,27 +164,19 @@ namespace intra_app.views
             loadTable();
         }
 
-        private void inputFirstName_LeftButton(object sender, MouseButtonEventArgs e)
+        private void inputName_LeftButton(object sender, MouseButtonEventArgs e)
         {
-            if (inputFirstName.Text == "Ім'я")
+            if (inputName.Text == "Назва послуги")
             {
-                inputFirstName.Text = "";
+                inputName.Text = "";
             }
         }
 
-        private void inputSurName_LeftButton(object sender, MouseButtonEventArgs e)
+        private void inputPrice_LeftButton(object sender, MouseButtonEventArgs e)
         {
-            if (inputSurName.Text == "Призвище")
+            if (inputName.Text == "Ціна за одиницю")
             {
-                inputSurName.Text = "";
-            }
-        }
-
-        private void inputPatronymic_LeftButton(object sender, MouseButtonEventArgs e)
-        {
-            if (inputPatronymic.Text == "По батькові")
-            {
-                inputPatronymic.Text = "";
+                inputName.Text = "";
             }
         }
 
@@ -277,8 +218,6 @@ namespace intra_app.views
         }
         private void buttonAddEntry_Click(object sender, RoutedEventArgs e)
         {
-            populateComboBox();
-
             controlPanel.Visibility = System.Windows.Visibility.Hidden;
             gridControl.Visibility = System.Windows.Visibility.Visible;
 
@@ -298,9 +237,10 @@ namespace intra_app.views
             loadTable();
         }
 
-        private void buttonEditEntry_Click(object sender, RoutedEventArgs e)
+        public void buttonEditEntry_Click(object sender, RoutedEventArgs e)
         {
-            try {
+            try
+            {
                 var cell = dataGrid.SelectedCells[0];
                 var index = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
 
@@ -315,7 +255,9 @@ namespace intra_app.views
 
                 loadRowData(index);
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 var stackTrace = new StackTrace(ex, true);
                 var frame = stackTrace.GetFrame(0);
                 var line = frame.GetFileLineNumber();
@@ -326,11 +268,6 @@ namespace intra_app.views
                 }
 
             }
-        }
-
-        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

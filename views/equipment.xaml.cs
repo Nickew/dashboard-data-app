@@ -113,6 +113,7 @@ namespace intra_app.views
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
+
             if (inputName.Text != "Название отдела" && inputName.Text != "")
             {
                 try
@@ -290,7 +291,7 @@ namespace intra_app.views
 
                 controlPanel.Visibility = System.Windows.Visibility.Hidden;
                 gridControl.Visibility = System.Windows.Visibility.Visible;
-                appendDock.Height = 100;
+                appendDock.Height = 290;
 
                 buttonAdd.Visibility = Visibility.Hidden;
                 buttonEdit.Visibility = Visibility.Visible;

@@ -38,7 +38,7 @@ namespace intra_app.views
 
         private void loadTable()
         {
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", "divisions", this.dataGrid);
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, main_sub as 'Код главного отдела', name as 'Название отдела' FROM", databaseTable, this.dataGrid);
         }
 
         private void loadRowData(string index)
@@ -105,6 +105,7 @@ namespace intra_app.views
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
+
             if (inputName.Text != "Название отдела" && inputName.Text != "")
             {
                 try

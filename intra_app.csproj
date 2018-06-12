@@ -58,6 +58,7 @@
     <Compile Include="viewModels\DivisionViewModel.cs" />
     <Compile Include="viewModels\EmployeeViewModel.cs" />
     <Compile Include="viewModels\EquipmentViewModel.cs" />
+    <Compile Include="viewModels\ServiceViewModel.cs" />
     <Compile Include="views\divisions.xaml.cs">
       <DependentUpon>divisions.xaml</DependentUpon>
     </Compile>
@@ -66,6 +67,9 @@
     </Compile>
     <Compile Include="views\equipment.xaml.cs">
       <DependentUpon>equipment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\services.xaml.cs">
+      <DependentUpon>services.xaml</DependentUpon>
     </Compile>
     <Compile Include="windows\equipmentPage.xaml.cs">
       <DependentUpon>equipmentPage.xaml</DependentUpon>
@@ -91,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\equipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\services.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,8 +151,15 @@
   <ItemGroup>
     <Resource Include="Resources\minimize.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="packages\setters\" />
+    <Resource Include="Resources\paper-plane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\toolbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\id-card.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

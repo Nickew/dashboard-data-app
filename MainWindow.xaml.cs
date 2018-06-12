@@ -70,6 +70,11 @@ namespace intra_app
             DataContext = new EquipmentViewModel();
         }
 
+        private void servicesDir_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new ServiceViewModel();
+        }
+
         private void closeWindow_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);

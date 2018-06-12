@@ -14,6 +14,9 @@
         <DataTemplate x:Name="equipmentViewTemplate" DataType="{x:Type viewmodels:EquipmentViewModel}">
             <views:equipment DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="serviceViewTemplate" DataType="{x:Type viewmodels:ServiceViewModel}">
+            <views:services DataContext="{Binding}" />
+        </DataTemplate>
         <Style TargetType="{x:Type Window}">
             <Setter Property="FontFamily" Value="Century Gothic" />
         </Style>
@@ -72,7 +75,7 @@
         </StackPanel>
         <!-- ASIDE -->
         <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF2C3E50">
-            <Label Foreground="White" FontSize="14" FontFamily="Century Gothic" Padding="20,12,0,0" VerticalAlignment="Center" Height="40">Данные</Label>
+            <Label Foreground="White" FontSize="14" FontFamily="Century Gothic" Padding="20,12,0,0" VerticalAlignment="Center" Height="40">Дані</Label>
             <Button x:Name="subDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand" Click="subDir_Click">
                 <StackPanel Height="40" Width="250" Orientation="Horizontal">
                     <Image Width="14" Height="18" Source="./Resources/book.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
@@ -81,14 +84,20 @@
             </Button>
             <Button x:Name="employeesDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand" Click="employeesDir_Click">
                 <StackPanel Height="40" Width="250" Orientation="Horizontal">
-                    <Image Width="14" Height="18" Source="./Resources/book.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
+                    <Image Width="16" Height="13" Source="./Resources/id-card.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
                     <TextBlock Text="Довідник працівників" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="190" HorizontalAlignment="Left" />
                 </StackPanel>
             </Button>
             <Button x:Name="equipmentDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand" Click="equipmentDir_Click">
                 <StackPanel Height="40" Width="250" Orientation="Horizontal">
-                    <Image Width="14" Height="18" Source="./Resources/book.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
+                    <Image Width="14" Height="13" Source="./Resources/toolbox.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
                     <TextBlock Text="Довідник обладнання" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="190" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="servicesDir" Foreground="White" HorizontalContentAlignment="Stretch" Height="40" FontSize="14" FontFamily="Century Gothic" Cursor="Hand" Click="servicesDir_Click">
+                <StackPanel Height="40" Width="250" Orientation="Horizontal">
+                    <Image Width="16" Height="15" Source="./Resources/paper-plane.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" />
+                    <TextBlock Text="Послуги" VerticalAlignment="Center" Margin="10,12,0,12" Height="16" Width="190" HorizontalAlignment="Left" />
                 </StackPanel>
             </Button>
         </StackPanel>
