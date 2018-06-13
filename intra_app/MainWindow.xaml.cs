@@ -23,6 +23,7 @@ namespace intra_app
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Window DLL
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -33,6 +34,11 @@ namespace intra_app
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
 
         public static extern bool ReleaseCapture();
+        #endregion
+
+        public const int AUTHORIZED_USERID = 0;
+        public const string AUTHORIZED_USERNAME = "Nickew";
+        public bool isAuthorized = true;
 
         public MainWindow()
         {
@@ -73,6 +79,11 @@ namespace intra_app
         private void servicesDir_Click(object sender, RoutedEventArgs e)
         {
             DataContext = new ServiceViewModel();
+        }
+
+        private void ordersDir_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new OrderViewModel();
         }
 
         private void closeWindow_Click(object sender, RoutedEventArgs e)

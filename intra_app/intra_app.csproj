@@ -58,6 +58,7 @@
     <Compile Include="viewModels\DivisionViewModel.cs" />
     <Compile Include="viewModels\EmployeeViewModel.cs" />
     <Compile Include="viewModels\EquipmentViewModel.cs" />
+    <Compile Include="viewModels\OrderViewModel.cs" />
     <Compile Include="viewModels\ServiceViewModel.cs" />
     <Compile Include="views\divisions.xaml.cs">
       <DependentUpon>divisions.xaml</DependentUpon>
@@ -67,6 +68,9 @@
     </Compile>
     <Compile Include="views\equipment.xaml.cs">
       <DependentUpon>equipment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\orders.xaml.cs">
+      <DependentUpon>orders.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\services.xaml.cs">
       <DependentUpon>services.xaml</DependentUpon>
@@ -95,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\equipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\orders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,7 +159,9 @@
   <ItemGroup>
     <Resource Include="Resources\minimize.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\check.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\paper-plane.png" />
   </ItemGroup>
