@@ -44,7 +44,7 @@ namespace intra_app.views
         {
             packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
-            string query = String.Format("SELECT id, main_sub, name FROM {0}.{1} WHERE id = {2}",
+            string query = String.Format("SELECT name, price_per_unit FROM {0}.{1} WHERE id = {2}",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable,
                 index);
@@ -60,6 +60,7 @@ namespace intra_app.views
                     while (reader.Read())
                     {
                         inputName.Text = (reader["name"].ToString());
+                        inputPrice.Text = (reader["price_per_unit"].ToString());
                     }
                 }
             }
