@@ -29,6 +29,12 @@ namespace intra_app.views
         public orders()
         {
             InitializeComponent();
+
+            appendDock.Height = 55;
+
+            loadTable();
+
+            loadServices();
         }
 
         private void loadTable()
@@ -62,6 +68,30 @@ namespace intra_app.views
             mySqlSettings.closeConnection();
         }
 
+        private void loadServices()
+        {
+            packages.mysql.mysqlSettings database = new packages.mysql.mysqlSettings();
+
+            string query = String.Format("SELECT id, name, price_per_unit FROM {0}.{1}",
+                packages.mysql.mysqlSettings.dbSchema,
+                "services"
+            );
+
+            database.createConnection();
+
+            using (database.initSqlCommand(query))
+            {
+                database.openConnection();
+
+                listServices.SelectedValuePath = "id";
+                listServices.DisplayMemberPath = "name";
+                listServices.ItemsSource = database.getData(query).DefaultView;
+
+            }
+            database.closeConnection();
+
+        }
+
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "id")
@@ -72,7 +102,7 @@ namespace intra_app.views
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string query = String.Format("INSERT INTO {0}.{1}(title, client_name, description, EMPLOYEES_id, SERVICES_id, completion_date) VALUES(@title, @client, @desc, @employee, @service, @date_end)",
+            string query = String.Format("INSERT INTO {0}.{1}(title, client_name, description, SERVICES_id, completion_date) VALUES(@title, @client, @desc, @service, @date_end)",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
@@ -85,8 +115,11 @@ namespace intra_app.views
                     {
                         mySqlConnection.Open();
 
-                        mySqlCommand.Parameters.AddWithValue("@title", null);
-                        mySqlCommand.Parameters.AddWithValue("@client_name", inputName.Text);
+                        mySqlCommand.Parameters.AddWithValue("@title", inputTitle.Text);
+                        mySqlCommand.Parameters.AddWithValue("@client", inputName.Text);
+                        mySqlCommand.Parameters.AddWithValue("@desc", inputDesc.Text);
+                        mySqlCommand.Parameters.AddWithValue("@service", listServices.SelectedValue);
+                        mySqlCommand.Parameters.AddWithValue("@date_end", inputDate.Text);
 
                         mySqlCommand.ExecuteNonQuery();
                         mySqlConnection.Close();
@@ -204,9 +237,7 @@ namespace intra_app.views
             buttonAdd.Visibility = Visibility.Visible;
             buttonEdit.Visibility = Visibility.Hidden;
 
-            inputEmployee.Text = MainWindow.AUTHORIZED_USERNAME;
-
-            appendDock.Height = 100;
+            appendDock.Height = 300;
         }
 
         private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
@@ -230,7 +261,7 @@ namespace intra_app.views
 
                 controlPanel.Visibility = System.Windows.Visibility.Hidden;
                 gridControl.Visibility = System.Windows.Visibility.Visible;
-                appendDock.Height = 100;
+                appendDock.Height = 300;
 
                 buttonAdd.Visibility = Visibility.Hidden;
                 buttonEdit.Visibility = Visibility.Visible;
