@@ -39,14 +39,14 @@ namespace intra_app.views
 
         private void loadTable()
         {
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id, client_name as 'Імя клієнта', publish_date as 'Дата замовлення', completion_date as 'Дата виконання' FROM", databaseTable, this.dataGrid);
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id as '№', quantity as 'Кількість', client_name as 'Імя клієнта', publish_date as 'Дата замовлення', completion_date as 'Дата виконання' FROM", databaseTable, this.dataGrid);
         }
 
         private void loadRowData(string index)
         {
             packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
-            string query = String.Format("SELECT id, main_sub, name FROM {0}.{1} WHERE id = {2}",
+            string query = String.Format("SELECT id, quantity, client_name, completion_date, description, SERVICES_id FROM {0}.{1} WHERE id = {2}",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable,
                 index);
@@ -61,7 +61,11 @@ namespace intra_app.views
                 {
                     while (reader.Read())
                     {
-                        inputName.Text = (reader["name"].ToString());
+                        inputQuantity.Text = (reader["quantity"].ToString());
+                        inputName.Text = (reader["client_name"].ToString());
+                        inputDesc.Text = (reader["description"].ToString());
+                        inputDate.Text = (reader["completion_date"].ToString());
+                        listServices.SelectedValue = (reader["SERVICES_id"]);
                     }
                 }
             }
@@ -94,15 +98,15 @@ namespace intra_app.views
 
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.Column.Header.ToString() == "id")
+            if (e.Column.Header.ToString() == "№")
             {
-                e.Column.MaxWidth = 0;
+                e.Column.MaxWidth = 75;
             }
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string query = String.Format("INSERT INTO {0}.{1}(title, client_name, description, SERVICES_id, completion_date) VALUES(@title, @client, @desc, @service, @date_end)",
+            string query = String.Format("INSERT INTO {0}.{1}(client_name, description, SERVICES_id, completion_date, quantity) VALUES(@client, @desc, @service, @date_end, @quantity)",
                 packages.mysql.mysqlSettings.dbSchema,
                 databaseTable
             );
@@ -115,11 +119,11 @@ namespace intra_app.views
                     {
                         mySqlConnection.Open();
 
-                        mySqlCommand.Parameters.AddWithValue("@title", inputTitle.Text);
                         mySqlCommand.Parameters.AddWithValue("@client", inputName.Text);
                         mySqlCommand.Parameters.AddWithValue("@desc", inputDesc.Text);
                         mySqlCommand.Parameters.AddWithValue("@service", listServices.SelectedValue);
                         mySqlCommand.Parameters.AddWithValue("@date_end", inputDate.Text);
+                        mySqlCommand.Parameters.AddWithValue("@quantity", inputQuantity.Text);
 
                         mySqlCommand.ExecuteNonQuery();
                         mySqlConnection.Close();
@@ -158,7 +162,7 @@ namespace intra_app.views
         {
             packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
 
-            string query = String.Format("UPDATE {0} SET client_name = @client, description = @desc, EMPLOYEES_id = @employee, SERVICES_id = @service, completion_date = @date_end WHERE id = {1}",
+            string query = String.Format("UPDATE {0} SET client_name = @client, description = @desc, SERVICES_id = @service, completion_date = @date_end, quantity = @quantity WHERE id = {1}",
                 databaseTable,
                 tmpIndex);
 
@@ -170,8 +174,11 @@ namespace intra_app.views
                     {
                         mySqlConnection.Open();
 
-                        // ...
-
+                        mySqlCommand.Parameters.AddWithValue("@client", inputName.Text);
+                        mySqlCommand.Parameters.AddWithValue("@desc", inputDesc.Text);
+                        mySqlCommand.Parameters.AddWithValue("@date_end", inputDate.Text);
+                        mySqlCommand.Parameters.AddWithValue("@service", listServices.SelectedValue);
+                        mySqlCommand.Parameters.AddWithValue("@quantity", inputQuantity.Text);
                         mySqlCommand.ExecuteNonQuery();
                         mySqlConnection.Close();
                     }
@@ -231,6 +238,10 @@ namespace intra_app.views
         }
         private void buttonAddEntry_Click(object sender, RoutedEventArgs e)
         {
+            inputName.Text = "Ім'я клієнта";
+            inputDesc.Text = "Опис (не обов'язково)";
+            inputDate.Text = DateTime.Now.ToString();
+
             controlPanel.Visibility = System.Windows.Visibility.Hidden;
             gridControl.Visibility = System.Windows.Visibility.Visible;
 
@@ -281,6 +292,19 @@ namespace intra_app.views
                 }
 
             }
+        }
+
+        private void dataGrid_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var title = (dataGrid.SelectedCells[1].Column.GetCellContent(dataGrid.SelectedCells[1].Item) as TextBlock).Text;
+            var division = (dataGrid.SelectedCells[2].Column.GetCellContent(dataGrid.SelectedCells[2].Item) as TextBlock).Text;
+            var description = (dataGrid.SelectedCells[3].Column.GetCellContent(dataGrid.SelectedCells[3].Item) as TextBlock).Text;
+            var techData = (dataGrid.SelectedCells[4].Column.GetCellContent(dataGrid.SelectedCells[4].Item) as TextBlock).Text;
+
+            windows.orderPage window = new windows.orderPage();
+            window.Title = title;
+
+            window.ShowDialog();
         }
     }
 }

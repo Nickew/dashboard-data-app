@@ -78,6 +78,9 @@
     <Compile Include="windows\equipmentPage.xaml.cs">
       <DependentUpon>equipmentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\orderPage.xaml.cs">
+      <DependentUpon>orderPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="windows\equipmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\orderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

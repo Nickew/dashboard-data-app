@@ -27,7 +27,7 @@
                     Grid.Row="1"
                     Background="#DBE6F0"
                     SelectionMode="Single"
-                    AutoGeneratingColumn="dataGrid_AutoGeneratingColumn"
+                    AutoGeneratingColumn="dataGrid_AutoGeneratingColumn" MouseDoubleClick="dataGrid_DoubleClick"
                     >
             <DataGrid.Resources>
                 <Style TargetType="DataGridCell">
@@ -94,7 +94,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="inputName" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Імя клієнта" VerticalAlignment="Center" Width="280" Margin="300,0,0,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton"></TextBox>
+                    <TextBox x:Name="inputQuantity" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" Height="30" TextWrapping="Wrap" Text="Кількість" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="10,0,10,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1"></TextBox>
+                    <TextBox x:Name="inputName" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" Height="30" TextWrapping="Wrap" Text="Імя клієнта" VerticalAlignment="Center" Margin="120,0,10,0" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton"></TextBox>
                     <TextBox x:Name="inputDesc" Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Margin="10,0,10,10" Text="Опис (не обов'язково)" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1"></TextBox>
                     <Button Grid.Row="2" Grid.Column="1" x:Name="buttonAdd" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" Foreground="#FF607C9D"  Cursor="Hand" Click="buttonAdd_Click" MouseEnter="buttonAdd_MouseEnter" MouseLeave="buttonAdd_MouseLeave" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <TextBlock Text="Додати запис" FontFamily="Global User Interface" Margin="0, 0, 10, 0"/>
@@ -108,7 +109,6 @@
                     <TextBlock Grid.Column="1" Text="Дата виконання: " VerticalAlignment="Center" Margin="100,0,100,0" />
                     <DatePicker Width="200" Height="30" x:Name="inputDate" Grid.Column="1" HorizontalAlignment="Left" Margin="210,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="5,0,0,2"/>
                     <ListBox x:Name="listServices" Margin="10,0,10,10" Grid.Column="1" Grid.Row="1" />
-                    <TextBox x:Name="inputTitle" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="Короткий опис (назва замовлення)" VerticalAlignment="Center" Width="280" Margin="10,7.5,0,7.5" Background="Transparent" BorderBrush="#dde8f1" SelectionBrush="#DDE8F1" FontStyle="Italic" FontSize="14" Foreground="#FF607C9D" BorderThickness="1" PreviewMouseDown="inputName_LeftButton"/>
                 </Grid >
                 <Grid x:Name="controlPanel">
                     <Grid.ColumnDefinitions>
