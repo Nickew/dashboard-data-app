@@ -39,7 +39,7 @@ namespace intra_app.views
 
         private void loadTable()
         {
-            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT id as '№', quantity as 'Кількість', client_name as 'Імя клієнта', publish_date as 'Дата замовлення', completion_date as 'Дата виконання' FROM", databaseTable, this.dataGrid);
+            packages.mysql.mysqlConnection mySqlConnection = new packages.mysql.mysqlConnection("SELECT description, id as '№', quantity as 'Кількість', client_name as 'Імя клієнта', publish_date as 'Дата замовлення', completion_date as 'Дата виконання', SERVICES_id FROM", databaseTable, this.dataGrid);
         }
 
         private void loadRowData(string index)
@@ -101,6 +101,14 @@ namespace intra_app.views
             if (e.Column.Header.ToString() == "№")
             {
                 e.Column.MaxWidth = 75;
+            }
+            if (e.Column.Header.ToString() == "description")
+            {
+                e.Column.MaxWidth = 0;
+            }
+            if (e.Column.Header.ToString() == "SERVICES_id")
+            {
+                e.Column.MaxWidth = 0;
             }
         }
 
@@ -253,7 +261,7 @@ namespace intra_app.views
 
         private void buttonDeleteEntry_Click(object sender, RoutedEventArgs e)
         {
-            var cell = dataGrid.SelectedCells[0];
+            var cell = dataGrid.SelectedCells[1];
             var index = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
 
             packages.mysql.deleteEntry deleteSelectedRow = new packages.mysql.deleteEntry(databaseTable, index, dataGrid);
@@ -265,7 +273,7 @@ namespace intra_app.views
         {
             try
             {
-                var cell = dataGrid.SelectedCells[0];
+                var cell = dataGrid.SelectedCells[1];
                 var index = (cell.Column.GetCellContent(cell.Item) as TextBlock).Text;
 
                 tmpIndex = index;
@@ -296,14 +304,51 @@ namespace intra_app.views
 
         private void dataGrid_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var title = (dataGrid.SelectedCells[1].Column.GetCellContent(dataGrid.SelectedCells[1].Item) as TextBlock).Text;
-            var division = (dataGrid.SelectedCells[2].Column.GetCellContent(dataGrid.SelectedCells[2].Item) as TextBlock).Text;
-            var description = (dataGrid.SelectedCells[3].Column.GetCellContent(dataGrid.SelectedCells[3].Item) as TextBlock).Text;
-            var techData = (dataGrid.SelectedCells[4].Column.GetCellContent(dataGrid.SelectedCells[4].Item) as TextBlock).Text;
-
+            var description = (dataGrid.SelectedCells[0].Column.GetCellContent(dataGrid.SelectedCells[0].Item) as TextBlock).Text;
+            var id = (dataGrid.SelectedCells[1].Column.GetCellContent(dataGrid.SelectedCells[1].Item) as TextBlock).Text;
+            var quantity = (dataGrid.SelectedCells[2].Column.GetCellContent(dataGrid.SelectedCells[2].Item) as TextBlock).Text;
+            var clientName = (dataGrid.SelectedCells[3].Column.GetCellContent(dataGrid.SelectedCells[3].Item) as TextBlock).Text;
+            var service = (dataGrid.SelectedCells[6].Column.GetCellContent(dataGrid.SelectedCells[6].Item) as TextBlock).Text;
             windows.orderPage window = new windows.orderPage();
-            window.Title = title;
 
+            #region serviceParser
+            packages.mysql.mysqlSettings mySqlSettings = new packages.mysql.mysqlSettings();
+            string query = String.Format("SELECT name, price_per_unit FROM {0}.{1} WHERE id = {2}",
+                packages.mysql.mysqlSettings.dbSchema,
+                "services",
+                Convert.ToInt32(service)
+            );
+
+            mySqlSettings.createConnection();
+
+            using (mySqlSettings.initSqlCommand(query))
+            {
+                mySqlSettings.openConnection();
+
+                using (MySqlDataReader reader = mySqlSettings.initSqlCommand(query).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        window.tbService.Text = (reader["name"].ToString());
+                        window.tbServicePrice.Text = (reader["price_per_unit"].ToString());
+                    }
+                }
+
+            }
+
+            mySqlSettings.closeConnection();
+            #endregion
+
+            int servicePrice = Convert.ToInt32(window.tbServicePrice.Text);
+            int total = servicePrice * Convert.ToInt32(quantity);
+
+            window.Title = "Замовлення №" + id;
+            window.tbTitle.Text = "Замовлення №" + id.ToString();
+            window.tbClient.Text = clientName;
+            window.tbQuantity.Text = quantity;
+            window.tbDesc.Text = description;
+
+            window.tbTotalPrice.Text = total.ToString();
             window.ShowDialog();
         }
     }

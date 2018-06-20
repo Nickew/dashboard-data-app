@@ -7,25 +7,37 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label x:Name="lbTitle" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Segoe UI Semibold"/>
-        <DockPanel Grid.Row="1" Background="LightGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="tbTitle" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Segoe UI Semibold"/>
+        <DockPanel Grid.ColumnSpan="2" Grid.Row="1" Background="LightGray">
             <Label Content="Ім'я клієнта: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <TextBlock x:Name="tbClient" Width="300" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBlock x:Name="tbClient" HorizontalAlignment="Stretch" Margin="0,12,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+        </DockPanel>
+        <DockPanel Grid.Column="0"  Grid.Row="2" Background="#FFEEEEEE">
+            <Label Grid.Column="0" Content="Обрана послуга: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <TextBlock Grid.Column="0" x:Name="tbService" Width="300" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+        </DockPanel>
+        <DockPanel Grid.Column="1"  Grid.Row="2" Background="#FFEEEEEE">
             <Label Content="Кількість продукції: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top"/>
             <TextBlock x:Name="tbQuantity" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
         </DockPanel>
-        <DockPanel Grid.Row="2" Background="#FFEEEEEE">
-            <Label Content="Обрана послуга: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBlock x:Name="tbService" Width="200" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label Content="Вартість послуги за одн. прод.: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBlock x:Name="tbServicePrice" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
-            <Label Content="Загальна вартість: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBlock x:Name="tbTotalPrice" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+        <DockPanel Grid.Column="0"  Grid.Row="3" Background="#FFEEEEEE">
+            <Label Content="Вартість послуги за одн. прод.: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+            <TextBlock x:Name="tbServicePrice" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+          
         </DockPanel>
-        <Label Content="Опис: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbDesc" Margin="10,41,10,10" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" IsReadOnly="True" />
+        <DockPanel Grid.Column="1" Grid.Row="3" Background="#FFEEEEEE">
+            <Label Content="Загальна вартість: " HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+            <TextBlock x:Name="tbTotalPrice" HorizontalAlignment="Left" Margin="0,12,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Bold"/>
+        </DockPanel>
+        <Label Grid.ColumnSpan="2" Content="Опис: " HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <TextBox Grid.ColumnSpan="2" x:Name="tbDesc" Margin="10,41,10,10" Grid.Row="4" TextWrapping="Wrap" Text="TextBox" IsReadOnly="True" MouseDoubleClick="d" />
 
     </Grid>
 </Window>

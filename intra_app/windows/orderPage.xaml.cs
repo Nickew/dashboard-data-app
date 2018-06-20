@@ -23,5 +23,11 @@ namespace intra_app.windows
         {
             InitializeComponent();
         }
+
+        private void d(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
     }
 }
